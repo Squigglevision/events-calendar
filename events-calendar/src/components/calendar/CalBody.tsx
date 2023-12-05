@@ -40,7 +40,7 @@ const CalBody: React.FC<Props> = ({
 					return <div key={day}>{day}</div>;
 				}
 			})}
-			{range(daysInMonth).map((day: string) => {
+			{range(daysInMonth).map((day: number) => {
 				return <div key={day}>{day}</div>;
 			})}
 		</div>

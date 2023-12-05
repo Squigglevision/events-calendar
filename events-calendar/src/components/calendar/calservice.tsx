@@ -23,12 +23,7 @@ export const MONTHS: string[] = [
 	"December",
 ];
 
-export const parseISOString = (s) => {
-	const b = s.split(/\D+/);
-	return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
-};
-
-export const range = (end: number) => {
+export const range = (end: number): number[] => {
 	const { result } = Array.from({ length: end }).reduce(
 		({ result, current }) => ({
 			result: [...result, current],
@@ -39,20 +34,20 @@ export const range = (end: number) => {
 	return result;
 };
 
-export const getDays = (month, year) => {
+export const getDays = (month: number, year: number): number => {
 	return new Date(year, month + 1, 0).getDate();
 };
 
-export const getSortedDays = (month, year) => {
+export const getSortedDays = (month: number, year: number): string[] => {
 	const dayIndex = new Date(year, month, 1).getDay();
 	return [...DAYS.slice(dayIndex), ...DAYS.slice(0, dayIndex)];
 };
 
-export const getDateObj = (day, month, year) => {
+export const getDateObj = (day: number, month: number, year: number): Date => {
 	return new Date(year, month, day);
 };
 
-export const areDatesTheSame = (first, second) => {
+export const areDatesTheSame = (first: Date, second: Date): boolean => {
 	return (
 		first.getFullYear() === second.getFullYear() &&
 		first.getMonth() === second.getMonth() &&
