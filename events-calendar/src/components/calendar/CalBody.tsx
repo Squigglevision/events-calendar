@@ -1,16 +1,47 @@
-import { range } from "./calservice";
-import { DAYS } from "./calservice";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
+import { MONTHS, getSortedDays, range } from "./calservice";
+import { Props } from "../../interfaces/Props";
 
-const CalBody = () => {
+const CalBody: React.FC<Props> = ({
+	daysInMonth,
+	currentMonth,
+	currentYear,
+	setCurrentMonth,
+	setCurrentYear,
+}) => {
+	const nextMonth = () => {
+		if (currentMonth < 11) {
+			setCurrentMonth((prev) => prev + 1);
+		} else {
+			setCurrentMonth(0);
+			setCurrentYear((prev) => prev + 1);
+		}
+	};
+
+	const prevMonth = () => {
+		if (currentMonth > 0) {
+			setCurrentMonth((next) => next - 1);
+		} else {
+			setCurrentMonth(11);
+			setCurrentYear((next) => next - 1);
+		}
+	};
+
 	return (
 		<div>
-			{DAYS.map((day: string) => {
+			<IoIosArrowBack onClick={prevMonth} />
+			<h1>
+				{MONTHS[currentMonth]} {currentYear}
+			</h1>
+			<IoIosArrowForward onClick={nextMonth} />
+			{getSortedDays(currentMonth, currentYear).map((day: string) => {
 				{
 					return <div key={day}>{day}</div>;
 				}
 			})}
-			{range(31).map((day: string) => {
-				return <div>{day}</div>;
+			{range(daysInMonth).map((day: string) => {
+				return <div key={day}>{day}</div>;
 			})}
 		</div>
 	);
