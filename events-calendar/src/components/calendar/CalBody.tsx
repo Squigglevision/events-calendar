@@ -1,6 +1,12 @@
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
-import { MONTHS, getSortedDays, range } from "./calservice";
+import {
+	MONTHS,
+	areDatesTheSame,
+	getDateObj,
+	getSortedDays,
+	range,
+} from "./calservice";
 import { Props } from "../../interfaces/Props";
 import styles from "./CalBody.module.scss";
 
@@ -58,7 +64,19 @@ const CalBody: React.FC<Props> = ({
 				</div>
 				<div className={styles.daysinmonth}>
 					{range(daysInMonth).map((day: number) => {
-						return <div key={day}>{day}</div>;
+						return (
+							<div
+								{...(areDatesTheSame(
+									new Date(),
+									getDateObj(day, currentMonth, currentYear)
+								) == true
+									? { className: styles.active }
+									: null)}
+								key={day}
+							>
+								{day}
+							</div>
+						);
 					})}
 				</div>
 			</div>
