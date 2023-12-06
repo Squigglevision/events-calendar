@@ -1,6 +1,7 @@
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import {
+	DAYS,
 	MONTHS,
 	areDatesTheSame,
 	getDateObj,
@@ -59,13 +60,11 @@ const CalBody: React.FC<CalProps> = ({
 			</div>
 			<div className={styles.calendarbody}>
 				<div className={styles.weekdays}>
-					{getSortedDays(currentMonth, currentYear).map(
-						(day: string) => {
-							{
-								return <div key={day}>{day}</div>;
-							}
+					{DAYS.map((day: string) => {
+						{
+							return <div key={day}>{day}</div>;
 						}
-					)}
+					})}
 				</div>
 				<div className={styles.daysinmonth}>
 					{range(daysInMonth).map((day: number) => {
