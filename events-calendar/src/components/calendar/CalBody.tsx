@@ -2,6 +2,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { MONTHS, getSortedDays, range } from "./calservice";
 import { Props } from "../../interfaces/Props";
+import styles from "./CalBody.module.scss";
 
 const CalBody: React.FC<Props> = ({
 	daysInMonth,
@@ -29,20 +30,38 @@ const CalBody: React.FC<Props> = ({
 	};
 
 	return (
-		<div>
-			<IoIosArrowBack onClick={prevMonth} />
-			<h1>
-				{MONTHS[currentMonth]} {currentYear}
-			</h1>
-			<IoIosArrowForward onClick={nextMonth} />
-			{getSortedDays(currentMonth, currentYear).map((day: string) => {
-				{
-					return <div key={day}>{day}</div>;
-				}
-			})}
-			{range(daysInMonth).map((day: number) => {
-				return <div key={day}>{day}</div>;
-			})}
+		<div className={styles.calendar}>
+			<div className={styles.month}>
+				<IoIosArrowBack
+					onClick={prevMonth}
+					className={styles.prevmonth}
+					size={25}
+				/>
+				<h1>
+					{MONTHS[currentMonth]} {currentYear}
+				</h1>
+				<IoIosArrowForward
+					onClick={nextMonth}
+					className={styles.nextmonth}
+					size={25}
+				/>
+			</div>
+			<div className={styles.calendarbody}>
+				<div className={styles.weekdays}>
+					{getSortedDays(currentMonth, currentYear).map(
+						(day: string) => {
+							{
+								return <div key={day}>{day}</div>;
+							}
+						}
+					)}
+				</div>
+				<div className={styles.daysinmonth}>
+					{range(daysInMonth).map((day: number) => {
+						return <div key={day}>{day}</div>;
+					})}
+				</div>
+			</div>
 		</div>
 	);
 };
