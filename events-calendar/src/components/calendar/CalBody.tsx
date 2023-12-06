@@ -7,15 +7,16 @@ import {
 	getSortedDays,
 	range,
 } from "./calservice";
-import { Props } from "../../interfaces/Props";
+import { CalProps } from "../../interfaces/CalProps";
 import styles from "./CalBody.module.scss";
 
-const CalBody: React.FC<Props> = ({
+const CalBody: React.FC<CalProps> = ({
 	daysInMonth,
 	currentMonth,
 	currentYear,
 	setCurrentMonth,
 	setCurrentYear,
+	setModalVisible,
 }) => {
 	const nextMonth = () => {
 		if (currentMonth < 11) {
@@ -33,6 +34,10 @@ const CalBody: React.FC<Props> = ({
 			setCurrentMonth(11);
 			setCurrentYear((next) => next - 1);
 		}
+	};
+
+	const showModal = () => {
+		setModalVisible(true);
 	};
 
 	return (
@@ -73,6 +78,7 @@ const CalBody: React.FC<Props> = ({
 									? { className: styles.active }
 									: null)}
 								key={day}
+								onClick={showModal}
 							>
 								{day}
 							</div>

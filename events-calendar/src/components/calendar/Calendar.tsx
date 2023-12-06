@@ -1,24 +1,12 @@
-import { Props } from "../../interfaces/Props";
+import { CalProps } from "../../interfaces/CalProps";
 import CalBody from "./CalBody";
 
 import React from "react";
 
-const Calendar: React.FC<Props> = ({
-	daysInMonth,
-	currentMonth,
-	currentYear,
-	setCurrentMonth,
-	setCurrentYear,
-}) => {
+const Calendar: React.FC<CalProps> = ({ ...props }) => {
 	return (
 		<div>
-			<CalBody
-				daysInMonth={daysInMonth}
-				currentMonth={currentMonth}
-				currentYear={currentYear}
-				setCurrentMonth={setCurrentMonth}
-				setCurrentYear={setCurrentYear}
-			/>
+			<CalBody {...props} />
 		</div>
 	);
 };

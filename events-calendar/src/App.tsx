@@ -2,27 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Calendar from "./components/calendar/Calendar";
 import { getDays } from "./components/calendar/calservice";
-import { Props } from "./interfaces/Props";
-
-const MyComponent: React.FC<Props> = ({
-	daysInMonth,
-	currentMonth,
-	currentYear,
-	setCurrentMonth,
-	setCurrentYear,
-}) => {
-	return (
-		<div>
-			<Calendar
-				daysInMonth={daysInMonth}
-				currentMonth={currentMonth}
-				currentYear={currentYear}
-				setCurrentMonth={setCurrentMonth}
-				setCurrentYear={setCurrentYear}
-			/>
-		</div>
-	);
-};
+import Modal from "./components/modal/Modal";
 
 const App: React.FC = () => {
 	const startDate = new Date();
@@ -30,14 +10,22 @@ const App: React.FC = () => {
 	const [currentYear, setCurrentYear] = useState(startDate.getFullYear());
 	const daysInMonth = getDays(currentMonth, currentYear);
 
+	const [modalVisible, setModalVisible] = useState(false);
+
 	return (
 		<div>
-			<MyComponent
+			{modalVisible && (
+				<Modal setModalVisible={setModalVisible}>
+					This is an empty modal
+				</Modal>
+			)}
+			<Calendar
 				daysInMonth={daysInMonth}
 				currentMonth={currentMonth}
 				currentYear={currentYear}
 				setCurrentMonth={setCurrentMonth}
 				setCurrentYear={setCurrentYear}
+				setModalVisible={setModalVisible}
 			/>
 		</div>
 	);

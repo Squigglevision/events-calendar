@@ -10,12 +10,10 @@
 	gap: 10px;
 }
 
-.prevmonth {
-	margin-top: 50px;
-}
-
+.prevmonth,
 .nextmonth {
 	margin-top: 50px;
+	cursor: pointer;
 }
 
 .calendar {
@@ -55,6 +53,7 @@
 	padding: 5px;
 	font-size: 12px;
 	color: #777;
+	cursor: pointer;
 }
 
 .daysinmonth .active {
