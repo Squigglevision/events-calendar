@@ -10,6 +10,8 @@ import {
 import styles from "./Calendar.module.scss";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { CalProps } from "../../interfaces/CalProps";
+import EventModal from "../eventCard/EventModal";
+import EventCard from "../eventCard/EventCard";
 
 const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 	const today = new Date();
@@ -18,6 +20,8 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 	const [month, setMonth] = useState(date.getMonth());
 	const [year, setYear] = useState(date.getFullYear());
 	const [startDay, setStartDay] = useState(getStartDayOfMonth(date));
+
+	const [eventCardVisible, setEventCardVisible] = useState(false);
 
 	useEffect(() => {
 		setDay(date.getDate());
@@ -31,8 +35,13 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 	const showModal = () => {
 		setModalVisible(true);
 	};
-	console.log(formData, " << in calendar");
-	console.log(year, " << year in cal");
+	const showEventCard = () => {
+		setEventCardVisible(true);
+	};
+
+	// console.log(formData, " << in calendar");
+
+	console.log(eventCardVisible, " <<< eventCardVisible");
 
 	return (
 		<div className={styles.calendar}>
@@ -77,7 +86,7 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 										day > 0 ? showModal() : null
 									}
 								>
-									<h4>{day > 0 && day}</h4>
+									<h4>{day > 0 ? day : 0}</h4>
 									{formData.length > 0 &&
 										formData.map((data, index) =>
 											data.startDate.getMonth() ===
@@ -85,9 +94,35 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 											data.startDate.getDate() === day &&
 											data.startDate.getFullYear() ===
 												year ? (
-												<p key={index}>
+												<section
+													onClick={() =>
+														showEventCard()
+													}
+													key={index}
+												>
 													{data.eventName}
-												</p>
+													{eventCardVisible ==
+														true && (
+														<EventCard
+															eventName={
+																data.eventName
+															}
+															startDate={
+																data.startDate
+															}
+															endDate={
+																data.endDate
+															}
+															location={
+																data.location
+															}
+															label={data.label}
+															setEventCardVisible={
+																setEventCardVisible
+															}
+														/>
+													)}
+												</section>
 											) : null
 										)}
 								</div>

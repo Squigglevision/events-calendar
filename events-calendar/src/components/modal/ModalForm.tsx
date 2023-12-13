@@ -19,7 +19,6 @@ const ModalForm = ({ formData, setFormData }: ModalProps) => {
 			locationRef.current.value.length > 0 &&
 			labelRef.current.value.length > 0
 		) {
-			console.log(new Date(startRef.current.value).getDate(), " << Day");
 			setFormData([
 				...formData,
 				{
