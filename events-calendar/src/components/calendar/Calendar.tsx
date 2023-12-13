@@ -23,6 +23,12 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 
 	const [eventCardVisible, setEventCardVisible] = useState(false);
 
+	const [eventName, setEventName] = useState("");
+	const [startDate, setStartDate] = useState<Date>();
+	const [endDate, setEndDate] = useState<Date>();
+	const [location, setLocation] = useState("");
+	const [label, setLabel] = useState("");
+
 	useEffect(() => {
 		setDay(date.getDate());
 		setMonth(date.getMonth());
@@ -35,16 +41,34 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 	const showModal = () => {
 		setModalVisible(true);
 	};
-	const showEventCard = () => {
+
+	const setEventCard = (
+		eventName: string,
+		startDate: Date,
+		endDate: Date,
+		location: string,
+		label: string
+	) => {
 		setEventCardVisible(true);
+		setEventName(eventName);
+		setStartDate(startDate);
+		setEndDate(endDate);
+		setLocation(location);
+		setLabel(label);
 	};
-
-	// console.log(formData, " << in calendar");
-
-	console.log(eventCardVisible, " <<< eventCardVisible");
 
 	return (
 		<div className={styles.calendar}>
+			{eventCardVisible && (
+				<EventCard
+					eventName={eventName}
+					startDate={startDate}
+					endDate={endDate}
+					location={location}
+					label={label}
+					setEventCardVisible={setEventCardVisible}
+				/>
+			)}
 			<div className={styles.month}>
 				<IoIosArrowBack
 					onClick={() => setDate(new Date(year, month - 1, day))}
@@ -85,8 +109,12 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 									onClick={() =>
 										day > 0 ? showModal() : null
 									}
+									{...(day <= 0
+										? { className: styles.empty }
+										: null)}
 								>
 									<h4>{day > 0 ? day : 0}</h4>
+
 									{formData.length > 0 &&
 										formData.map((data, index) =>
 											data.startDate.getMonth() ===
@@ -96,32 +124,17 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 												year ? (
 												<section
 													onClick={() =>
-														showEventCard()
+														setEventCard(
+															data.eventName,
+															data.startDate,
+															data.endDate,
+															data.location,
+															data.label
+														)
 													}
 													key={index}
 												>
 													{data.eventName}
-													{eventCardVisible ==
-														true && (
-														<EventCard
-															eventName={
-																data.eventName
-															}
-															startDate={
-																data.startDate
-															}
-															endDate={
-																data.endDate
-															}
-															location={
-																data.location
-															}
-															label={data.label}
-															setEventCardVisible={
-																setEventCardVisible
-															}
-														/>
-													)}
 												</section>
 											) : null
 										)}

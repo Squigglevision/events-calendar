@@ -4,5 +4,5 @@ export interface EventCardProps {
 	endDate?: unknown;
 	location?: unknown;
 	label?: unknown;
-	setEventCardVisible: React.Dispatch<React.SetStateAction<boolean>>;
+	setEventCardVisible?: React.Dispatch<React.SetStateAction<boolean>>;
 }
