@@ -59,7 +59,7 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible }) => {
 					))}
 				</div>
 				<div className={styles.daysinmonth}>
-					{Array(days[month] + (startDay - 1))
+					{Array(days[month] + startDay)
 						.fill(null)
 						.map((_, index) => {
 							const day = index - (startDay - 1);
@@ -76,6 +76,17 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible }) => {
 									}
 								>
 									{day > 0 && day}
+
+									{day == 13 &&
+									month == 11 &&
+									year == 2023 ? (
+										<h2> Event1 day 13 </h2>
+									) : null}
+									{day == 15 &&
+									month == 11 &&
+									year == 2023 ? (
+										<h2> Event2 day 15 </h2>
+									) : null}
 								</div>
 							);
 						})}

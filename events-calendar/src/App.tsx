@@ -8,13 +8,12 @@ const App: React.FC = () => {
 
 	return (
 		<div>
-			<Calendar setModalVisible={setModalVisible} />
-
 			{modalVisible && (
 				<Modal setModalVisible={setModalVisible}>
 					This is an empty modal
 				</Modal>
 			)}
+			<Calendar setModalVisible={setModalVisible} />
 		</div>
 	);
 };
