@@ -1,72 +1,39 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import { ModalProps } from "../../interfaces/ModalProps";
+import { getStartDayOfMonth } from "../calendar/calservice";
 
-const ModalForm = () => {
+const ModalForm = ({ formData, setFormData }: ModalProps) => {
 	const nameRef = useRef(null);
 	const startRef = useRef(null);
 	const endRef = useRef(null);
 	const locationRef = useRef(null);
 	const labelRef = useRef(null);
 
-	let eventArray: [object];
-
-	interface formData {
-		eventName?: unknown;
-		startDate?: unknown;
-		endDate?: unknown;
-		location?: unknown;
-		label?: unknown;
-	}
-
 	function handleSubmit(event) {
 		event.preventDefault();
+		console.log(typeof startRef.current.value, " << typeof startRef");
 		if (
-			nameRef.current &&
-			startRef.current &&
-			endRef.current &&
-			locationRef.current &&
-			labelRef.current
+			nameRef.current.value.length > 0 &&
+			startRef.current.value.length > 0 &&
+			endRef.current.value.length > 0 &&
+			locationRef.current.value.length > 0 &&
+			labelRef.current.value.length > 0
 		) {
-			if (eventArray != undefined) {
-				console.log("After first Form Data:", {
-					eventName: nameRef.current.value.toString(),
-					startDate: startRef.current.value.toString(),
-					endDate: endRef.current.value.toString(),
-					location: locationRef.current.value.toString(),
-					label: labelRef.current.value.toString(),
-				});
-				const data: formData = {
+			console.log(new Date(startRef.current.value).getDate(), " << Day");
+			setFormData([
+				...formData,
+				{
 					eventName: nameRef.current.value,
-					startDate: startRef.current.value,
-					endDate: endRef.current.value,
+					startDate: new Date(startRef.current.value),
+					endDate: new Date(endRef.current.value),
 					location: locationRef.current.value,
 					label: labelRef.current.value,
-				};
-				eventArray.push(data);
-			}
-
-			if (eventArray == undefined) {
-				console.log("First form Data:", {
-					eventName: nameRef.current.value.toString(),
-					startDate: startRef.current.value.toString(),
-					endDate: endRef.current.value.toString(),
-					location: locationRef.current.value.toString(),
-					label: labelRef.current.value.toString(),
-				});
-
-				eventArray = [
-					{
-						eventName: nameRef.current.value,
-						startDate: startRef.current.value,
-						endDate: endRef.current.value,
-						location: locationRef.current.value,
-						label: labelRef.current.value,
-					},
-				];
-			}
-
-			console.log(eventArray);
+				},
+			]);
 		}
 	}
+
+	// console.log(formData, " <<-- formData");
 
 	return (
 		<div>

@@ -1,7 +1,7 @@
 import { ModalProps } from "../../interfaces/ModalProps";
 import ModalForm from "./ModalForm";
 
-const Modal = ({ setModalVisible }: ModalProps) => {
+const Modal = ({ setModalVisible, formData, setFormData }: ModalProps) => {
 	const closeModal = () => {
 		setModalVisible(false);
 	};
@@ -9,7 +9,7 @@ const Modal = ({ setModalVisible }: ModalProps) => {
 	return (
 		<div className="modal-container">
 			<dialog className="modal" open>
-				<ModalForm />
+				<ModalForm formData={formData} setFormData={setFormData} />
 				<button onClick={closeModal}>Close</button>
 			</dialog>
 		</div>

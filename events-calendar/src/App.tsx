@@ -5,15 +5,28 @@ import Modal from "./components/modal/Modal";
 
 const App: React.FC = () => {
 	const [modalVisible, setModalVisible] = useState(false);
+	const [formData, setFormData] = useState<
+		{
+			eventName?: unknown;
+			startDate?: unknown;
+			endDate?: unknown;
+			location?: unknown;
+			label?: unknown;
+		}[]
+	>([]);
 
 	return (
 		<div>
 			{modalVisible && (
-				<Modal setModalVisible={setModalVisible}>
+				<Modal
+					setModalVisible={setModalVisible}
+					formData={formData}
+					setFormData={setFormData}
+				>
 					This is an empty modal
 				</Modal>
 			)}
-			<Calendar setModalVisible={setModalVisible} />
+			<Calendar setModalVisible={setModalVisible} formData={formData} />
 		</div>
 	);
 };

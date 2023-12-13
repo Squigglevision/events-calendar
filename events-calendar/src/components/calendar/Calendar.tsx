@@ -11,7 +11,7 @@ import styles from "./Calendar.module.scss";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { CalProps } from "../../interfaces/CalProps";
 
-const Calendar: React.FC<CalProps> = ({ setModalVisible }) => {
+const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 	const today = new Date();
 	const [date, setDate] = useState(today);
 	const [day, setDay] = useState(date.getDate());
@@ -31,6 +31,8 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible }) => {
 	const showModal = () => {
 		setModalVisible(true);
 	};
+	console.log(formData, " << in calendar");
+	console.log(year, " << year in cal");
 
 	return (
 		<div className={styles.calendar}>
@@ -75,18 +77,19 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible }) => {
 										day > 0 ? showModal() : null
 									}
 								>
-									{day > 0 && day}
-
-									{day == 13 &&
-									month == 11 &&
-									year == 2023 ? (
-										<h2> Event1 day 13 </h2>
-									) : null}
-									{day == 15 &&
-									month == 11 &&
-									year == 2023 ? (
-										<h2> Event2 day 15 </h2>
-									) : null}
+									<h4>{day > 0 && day}</h4>
+									{formData.length > 0 &&
+										formData.map((data, index) =>
+											data.startDate.getMonth() ===
+												month &&
+											data.startDate.getDate() === day &&
+											data.startDate.getFullYear() ===
+												year ? (
+												<p key={index}>
+													{data.eventName}
+												</p>
+											) : null
+										)}
 								</div>
 							);
 						})}
