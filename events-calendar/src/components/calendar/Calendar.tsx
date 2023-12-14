@@ -33,16 +33,19 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 
 	let filteredData: [object] = [{}];
 
+	console.log(locationFilter, " << locationFilter");
+	console.log(labelFilter, " << labelFilter");
+
 	if (locationFilter && labelFilter)
 		filteredData = formData.filter((data) => {
 			if (data.label == labelFilter && data.location == locationFilter)
 				return data;
 		});
-	if (locationFilter)
+	else if (locationFilter)
 		filteredData = formData.filter((data) => {
 			if (data.location == locationFilter) return data;
 		});
-	if (labelFilter)
+	else if (labelFilter)
 		filteredData = formData.filter((data) => {
 			if (data.label == labelFilter) return data;
 		});
