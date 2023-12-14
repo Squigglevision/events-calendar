@@ -1,5 +1,6 @@
 import { ModalProps } from "../../interfaces/ModalProps";
 import ModalForm from "./ModalForm";
+import styles from "./Modal.module.scss";
 
 const Modal = ({ setModalVisible, formData, setFormData }: ModalProps) => {
 	const closeModal = () => {
@@ -7,10 +8,16 @@ const Modal = ({ setModalVisible, formData, setFormData }: ModalProps) => {
 	};
 
 	return (
-		<div className="modal-container">
-			<dialog className="modal" open>
-				<ModalForm formData={formData} setFormData={setFormData} />
-				<button onClick={closeModal}>Close</button>
+		<div className={styles.modalContainer}>
+			<dialog className={styles.modal} open>
+				<ModalForm
+					formData={formData}
+					setFormData={setFormData}
+					setModalVisible={setModalVisible}
+				/>
+				<button className={styles.btn} onClick={closeModal}>
+					Close
+				</button>
 			</dialog>
 		</div>
 	);

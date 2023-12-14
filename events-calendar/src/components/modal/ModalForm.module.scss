@@ -1,0 +1,29 @@
+.form {
+	display: flex;
+	flex-direction: row;
+	gap: 50px;
+}
+.submit {
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.inputs {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	width: 50%;
+}
+
+.formContainer {
+	height: auto;
+	display: flex;
+	width: 80%;
+	gap: 50px;
+}
+
+.error {
+	color: rgb(174, 77, 77);
+}

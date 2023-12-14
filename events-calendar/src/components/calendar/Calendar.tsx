@@ -10,7 +10,6 @@ import {
 import styles from "./Calendar.module.scss";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { CalProps } from "../../interfaces/CalProps";
-import EventModal from "../eventCard/EventModal";
 import EventCard from "../eventCard/EventCard";
 
 const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
@@ -23,11 +22,11 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 
 	const [eventCardVisible, setEventCardVisible] = useState(false);
 
-	const [eventName, setEventName] = useState("");
+	const [eventName, setEventName] = useState<string>("");
 	const [startDate, setStartDate] = useState<Date>();
 	const [endDate, setEndDate] = useState<Date>();
-	const [location, setLocation] = useState("");
-	const [label, setLabel] = useState("");
+	const [location, setLocation] = useState<string>("");
+	const [label, setLabel] = useState<string>("");
 
 	useEffect(() => {
 		setDay(date.getDate());
