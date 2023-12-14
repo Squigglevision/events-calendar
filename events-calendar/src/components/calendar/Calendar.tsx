@@ -28,6 +28,26 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 	const [location, setLocation] = useState<string>("");
 	const [label, setLabel] = useState<string>("");
 
+	const [locationFilter, setLocationFilter] = useState<string>("");
+	const [labelFilter, setLabelFilter] = useState<string>("");
+
+	let filteredData: [object] = [{}];
+
+	if (locationFilter && labelFilter)
+		filteredData = formData.filter((data) => {
+			if (data.label == labelFilter && data.location == locationFilter)
+				return data;
+		});
+	if (locationFilter)
+		filteredData = formData.filter((data) => {
+			if (data.location == locationFilter) return data;
+		});
+	if (labelFilter)
+		filteredData = formData.filter((data) => {
+			if (data.label == labelFilter) return data;
+		});
+	else filteredData = formData;
+
 	useEffect(() => {
 		setDay(date.getDate());
 		setMonth(date.getMonth());
@@ -54,6 +74,14 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 		setEndDate(endDate);
 		setLocation(location);
 		setLabel(label);
+	};
+
+	const handleLocationChangeFilter = (event) => {
+		setLocationFilter(event.target.value);
+	};
+
+	const handleLabelChangeFilter = (event) => {
+		setLabelFilter(event.target.value);
 	};
 
 	return (
@@ -83,6 +111,31 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 					className={styles.nextmonth}
 					size={25}
 				/>
+			</div>
+			<div>
+				<label htmlFor="locationFilter">Filter by location: </label>
+				<select
+					name="locationFilter"
+					value={locationFilter}
+					onChange={handleLocationChangeFilter}
+				>
+					<option value="">-- Please Select --</option>
+					<option value="NSW">NSW</option>
+					<option value="VIC">VIC</option>
+					<option value="QLD">QLD</option>
+				</select>
+				<label htmlFor="labelFilter">Filter by label: </label>
+				<select
+					name="labelFilter"
+					value={labelFilter}
+					onChange={handleLabelChangeFilter}
+				>
+					<option value="">-- Please Select --</option>
+					{formData.length > 0 &&
+						formData.map((data, index) => (
+							<option key={index}>{data.label}</option>
+						))}
+				</select>
 			</div>
 			<div className={styles.calendarbody}>
 				<div className={styles.weekdays}>
@@ -114,8 +167,8 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 								>
 									<h4>{day > 0 ? day : 0}</h4>
 
-									{formData.length > 0 &&
-										formData.map((data, index) =>
+									{filteredData.length > 0 &&
+										filteredData.map((data, index) =>
 											data.startDate.getMonth() ===
 												month &&
 											data.startDate.getDate() === day &&
