@@ -115,30 +115,34 @@ const Calendar: React.FC<CalProps> = ({ setModalVisible, formData }) => {
 					size={25}
 				/>
 			</div>
-			<div>
-				<label htmlFor="locationFilter">Filter by location: </label>
-				<select
-					name="locationFilter"
-					value={locationFilter}
-					onChange={handleLocationChangeFilter}
-				>
-					<option value="">-- Please Select --</option>
-					<option value="NSW">NSW</option>
-					<option value="VIC">VIC</option>
-					<option value="QLD">QLD</option>
-				</select>
-				<label htmlFor="labelFilter">Filter by label: </label>
-				<select
-					name="labelFilter"
-					value={labelFilter}
-					onChange={handleLabelChangeFilter}
-				>
-					<option value="">-- Please Select --</option>
-					{formData.length > 0 &&
-						formData.map((data, index) => (
-							<option key={index}>{data.label}</option>
-						))}
-				</select>
+			<div className={styles.filter}>
+				<div>
+					<label htmlFor="locationFilter">Filter by location: </label>
+					<select
+						name="locationFilter"
+						value={locationFilter}
+						onChange={handleLocationChangeFilter}
+					>
+						<option value="">-- Please Select --</option>
+						<option value="NSW">NSW</option>
+						<option value="VIC">VIC</option>
+						<option value="QLD">QLD</option>
+					</select>
+				</div>
+				<div>
+					<label htmlFor="labelFilter">Filter by label: </label>
+					<select
+						name="labelFilter"
+						value={labelFilter}
+						onChange={handleLabelChangeFilter}
+					>
+						<option value="">-- Please Select --</option>
+						{formData.length > 0 &&
+							formData.map((data, index) => (
+								<option key={index}>{data.label}</option>
+							))}
+					</select>
+				</div>
 			</div>
 			<div className={styles.calendarbody}>
 				<div className={styles.weekdays}>
